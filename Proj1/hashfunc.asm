@@ -15,7 +15,7 @@ addi $9, $0, 1
 addi $23, $0, 101
 # initialize memory address for storing C
 ori $10, $0, 0x2020
-# loop for hash function data generation, stop branching when $9 == 100
+# loop for hash function data generation, stop branching when $9 == 101
 loop:
 # A * B
 mult $9, $8
@@ -67,3 +67,36 @@ addi $10, $10, 4
 addi $9, $9, 1
 # loop again with next value of A
 bne $9, $23, loop
+
+# among the 100 calculated values,
+# search for the largest C and write its address in 0x2000,
+# and its value in 0x2004.
+
+# reset address to load from 0x2020 onwards
+ori $10, $0, 0x2020
+# set target stop address for end of loop_biggest iteration
+ori $23, $0, 0x21B0
+# initialize first value to be compared
+lw $18, 0($10)
+# loop for comparisons, stop branching when when stop address is reached
+loop_biggest:
+# increment memory address to next word
+addi $10, $10, 4
+lw $19, 0($10)
+# set comparison flag if new bigger number is loaded
+slt $9, $18, $19
+# branch to end of loop if not set
+beq $9, $0, not_bigger
+# if flag set, record address of new biggest value and move biggest value for next comparison
+or $20, $0, $10
+add $18, $0, $19
+not_bigger:
+# loop again with next address
+bne $10, $23, loop_biggest
+
+# store address of largest value in 0x2000
+ori $10, $0, 0x2000
+sw $20, 0($10)
+# store largest value in 0x2004
+ori $10, $0, 0x2004
+sw $18, 0($10)
