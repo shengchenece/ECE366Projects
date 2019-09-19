@@ -15,16 +15,44 @@ addi $9, $0, 1
 addi $23, $0, 101
 # initialize memory address for storing C
 ori $10, $0, 0x2020
-# main loop for hash function operations, branch out when $9 == 100
+# main loop for hash function operations, stop branching when $9 == 100
 loop:
 # A * B
-mult $8, $9
+mult $9, $8
 # A1 = hi XOR lo
 mfhi $11
 mflo $12
 xor $13, $11, $12
-# store A1 (soon to be C) in memory
-sw $13, 0($10)
+# A1 * B
+mult $13, $8
+mfhi $11
+mflo $12
+# A2 = hi XOR lo
+xor $14, $11, $12
+# A2 * B
+mult $14, $8
+mfhi $11
+mflo $12
+# A3 = hi XOR lo
+xor $15, $11, $12
+# A3 * B
+mult $15, $8
+mfhi $11
+mflo $12
+# A4 = hi XOR lo
+xor $16, $11, $12
+# A4 * B
+mult $16, $8
+mfhi $11
+mflo $12
+# A5 = hi XOR lo
+xor $17, $11, $12
+# C = A5[31:16] XOR A5[15:0]
+
+# C = C[15:8] XOR C[7:0]
+
+# store C in memory
+sw $17, 0($10)
 # increment memory address to next word
 addi $10, $10, 4
 # increment A by 1
