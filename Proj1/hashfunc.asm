@@ -53,10 +53,14 @@ srl $18, $17, 16
 andi $19, $17, 0x0000FFFF
 # C = A5[31:16] XOR A5[15:0]
 xor $20, $18, $19
+# C[15:8]
+srl $21, $20, 8
+# C[7:0]
+andi $22, $20, 0x000000FF
 # C = C[15:8] XOR C[7:0]
-
+xor $22, $21, $22
 # store C in memory
-sw $20, 0($10)
+sw $22, 0($10)
 # increment memory address to next word
 addi $10, $10, 4
 # increment A by 1
