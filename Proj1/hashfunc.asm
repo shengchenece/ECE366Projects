@@ -47,12 +47,16 @@ mfhi $11
 mflo $12
 # A5 = hi XOR lo
 xor $17, $11, $12
+# A5[31:16]
+srl $18, $17, 16
+# A5[15:0]
+andi $19, $17, 0x0000FFFF
 # C = A5[31:16] XOR A5[15:0]
-
+xor $20, $18, $19
 # C = C[15:8] XOR C[7:0]
 
 # store C in memory
-sw $17, 0($10)
+sw $20, 0($10)
 # increment memory address to next word
 addi $10, $10, 4
 # increment A by 1
