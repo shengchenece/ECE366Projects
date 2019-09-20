@@ -78,6 +78,7 @@ ori $10, $0, 0x2020
 ori $23, $0, 0x21B0
 # initialize first value to be compared
 lw $18, 0($10)
+
 # loop for comparisons, stop branching when when stop address is reached
 loop_biggest:
 # increment memory address to next word
@@ -88,7 +89,7 @@ slt $9, $18, $19
 # branch to end of loop if not set
 beq $9, $0, not_bigger
 # if flag set, record address of new biggest value and move biggest value for next comparison
-or $20, $0, $10
+add $20, $0, $10
 add $18, $0, $19
 not_bigger:
 # loop again with next address
@@ -100,3 +101,51 @@ sw $20, 0($10)
 # store largest value in 0x2004
 ori $10, $0, 0x2004
 sw $18, 0($10)
+
+# check if each C in the array contains "11111" anywhere in the 8 bit binary (Y / N)
+# the total number of "Y" should be written into memory location 0x2008.
+
+# reset address read head to 0x2020, target stop address in $23 is already 0x21B0
+ori $10, $0, 0x2020
+# initialize register containing pattern
+addi $21, $0, 31
+# reset $9 for use as counter for values that match
+add $9, $0, $0
+
+# loop for comparisons, stop branching when when stop address is reached
+loop_11111:
+# initialize value to be compared
+lw $18, 0($10)
+# first comparison: check if bits 4:0 of value is 0b11111
+andi $22, $18, 31
+# skip increment if not equal
+beq $22, $21, match_11111
+# second comparison: shift value right to compare for bits 5:1
+srl $22, $18, 1
+andi $22, $18, 31
+beq $22, $21, match_11111
+# third comparison: shift value right to compare for bits 6:2
+srl $22, $18, 2
+andi $22, $18, 31
+beq $22, $21, match_11111
+# fourth comparison: shift value right to compare for bits 7:3
+srl $22, $18, 3
+andi $22, $18, 31
+beq $22, $21, match_11111
+# no match, go to end of loop
+# (this is supposed to be a j instruction but the 15-instruction limit was reached)
+beq $0, $0, endofloop
+# pattern match increment
+match_11111:
+addi $9, $9, 1
+# next loop around
+endofloop:
+# increment memory address to next word
+addi $10, $10, 4
+bne $10, $23, loop_11111
+
+# store match count in 0x2008
+ori $10, $0, 0x2008
+sw $9, 0($10)
+
+# MAAAAAAAAAKEEEEEEEE SURRRRRRRREEEEEEEEE TO RENAME FILES FOR SUBMISSION
