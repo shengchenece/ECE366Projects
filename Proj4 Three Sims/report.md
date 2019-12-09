@@ -5,7 +5,7 @@ Sheng Chen
 
 ## Activity Log
 December 7 - Began the project<br/>
-December 8 - <br/>
+December 8 - Menu structure and assembly program read-in<br/>
 December 9 - <br/>
 
 My advice for other students for this project is to have friends. Friends
@@ -25,7 +25,7 @@ assignment and project in this course that required it, as well as my
 motivation to work on them at all.
 
 My advice for other students programming in Python for this course in the
-future would be to take a class in Python beforehand and bring that experience
+future would be to take a class in Python beforehand, and bring that experience
 coming into the course. It takes a certain kind of personality to be
 self-motivated to learn a programming language without any requirement to apply
 it to a school project. For those who do not have that personality, I believe
