@@ -31,42 +31,48 @@ class Statistic:
 
     # Since the self.cycle has the updated cycles, need to substract x cycles for correct printing , i.e (self.cycle - x)
     def prints(self):
-        imm = self.I[2]
         if(self.diagMode):
             print('\n')
-            print('Instruction: ' + self.I)
             if(self.name == 'addi'):
-                print("Cycle: " + str(self.cycle-4) + "|PC: " +str(self.pc*4) + " addi $" + str(int(self.I[16:21],2)) + ",$" +str(int(self.I[6:11],2)) + ","  + imm  + "   Taking 4 cycles")
+                print("Cycle: " + str(self.cycle-4) + "|PC: " +str(self.pc*4) + " addi $" + self.I[0] + ",$" + self.I[1] + ","  + self.I[2] + "   Taking 4 cycles")
             elif(self.name == 'beq'):
-                print("Cycle: " + str(self.cycle-3) + "|PC: " +str(self.pc*4) + " beq $" + str(int(self.I[6:11],2)) + ",$" +str(int(self.I[11:16],2)) + ","  + imm  + "   Taking 3 cycles")
+                print("Cycle: " + str(self.cycle-3) + "|PC: " +str(self.pc*4) + " beq $" + self.I[0] + ",$" + self.I[1] + ","  + self.I[2] + "   Taking 3 cycles")
             elif(self.name == 'bne'):
-                print("Cycle: " + str(self.cycle-3) + "|PC: " +str(self.pc*4) + " bne $" + str(int(self.I[6:11],2)) + ",$" +str(int(self.I[11:16],2)) + ","  + imm  + "   Taking 3 cycles")
+                print("Cycle: " + str(self.cycle-3) + "|PC: " +str(self.pc*4) + " bne $" + self.I[0] + ",$" + self.I[1] + ","  + self.I[2] + "   Taking 3 cycles")
             elif(self.name == 'ori'):
-                print("Cycle: " + str(self.cycle-4) + "|PC: " +str(self.pc*4) + " ori $" + str(int(self.I[16:21],2)) + ",$" +str(int(self.I[6:11],2)) + ","  + imm  + "   Taking 4 cycles")
+                print("Cycle: " + str(self.cycle-4) + "|PC: " +str(self.pc*4) + " ori $" + self.I[0] + ",$" + self.I[1] + ","  + self.I[2] + "   Taking 4 cycles")
             elif(self.name == "addu"):
-                print("Cycle: " + str(self.cycle-4) + "|PC: " +str(self.pc*4) + " addu $" + str(int(self.I[16:21],2)) + ",$" +str(int(self.I[6:11],2)) + ",$" + str(int(self.I[11:16],2)) + "   Taking 4 cycles")
+                print("Cycle: " + str(self.cycle-4) + "|PC: " +str(self.pc*4) + " addu $" + self.I[0] + ",$" + self.I[1] + ",$" + self.I[2] + "   Taking 4 cycles")
             elif(self.name == "add"):
-                print("Cycle: " + str(self.cycle-4) + "|PC: " +str(self.pc*4) + " add $" + str(int(self.I[16:21],2)) + ",$" +str(int(self.I[6:11],2)) + ",$" + str(int(self.I[11:16],2)) + "   Taking 4 cycles")
+                print("Cycle: " + str(self.cycle-4) + "|PC: " +str(self.pc*4) + " add $" + self.I[0] + ",$" + self.I[1] + ",$" + self.I[2] + "   Taking 4 cycles")
             elif(self.name == 'sll'):
-                print("Cycle: " + str(self.cycle-4) + "|PC: " +str(self.pc*4) + " sll $" + str(int(self.I[16:21],2)) + ",$" +str(int(self.I[6:11],2)) + ","  + imm  + "   Taking 4 cycles")
+                print("Cycle: " + str(self.cycle-4) + "|PC: " +str(self.pc*4) + " sll $" + self.I[0] + ",$" + self.I[1] + ","  + self.I[2] + "   Taking 4 cycles")
             elif(self.name == "sltu"):
-                print("Cycle: " + str(self.cycle-4) + "|PC: " +str(self.pc*4) + " sltu $" + str(int(self.I[16:21],2)) + ",$" +str(int(self.I[6:11],2)) + ",$" + str(int(self.I[11:16],2)) + "   Taking 4 cycles")
+                print("Cycle: " + str(self.cycle-4) + "|PC: " +str(self.pc*4) + " sltu $" + self.I[0] + ",$" + self.I[1] + ",$" + self.I[2] + "   Taking 4 cycles")
             elif(self.name == "slt"):
-                print("Cycle: " + str(self.cycle-4) + "|PC: " +str(self.pc*4) + " slt $" + str(int(self.I[16:21],2)) + ",$" +str(int(self.I[6:11],2)) + ",$" + str(int(self.I[11:16],2)) + "   Taking 4 cycles")
+                print("Cycle: " + str(self.cycle-4) + "|PC: " +str(self.pc*4) + " slt $" + self.I[0] + ",$" + self.I[1] + ",$" + self.I[2] + "   Taking 4 cycles")
             elif(self.name == "sub"):
-                print("Cycle: " + str(self.cycle-4) + "|PC: " +str(self.pc*4) + " sub $" + str(int(self.I[16:21],2)) + ",$" +str(int(self.I[6:11],2)) + ",$" + str(int(self.I[11:16],2)) + "   Taking 4 cycles")
+                print("Cycle: " + str(self.cycle-4) + "|PC: " +str(self.pc*4) + " sub $" + self.I[0] + ",$" + self.I[1] + ",$" + self.I[2] + "   Taking 4 cycles")
             elif(self.name == "xor"):
-                print("Cycle: " + str(self.cycle-4) + "|PC: " +str(self.pc*4) + " xor $" + str(int(self.I[16:21],2)) + ",$" +str(int(self.I[6:11],2)) + ",$" + str(int(self.I[11:16],2)) + "   Taking 4 cycles")
+                print("Cycle: " + str(self.cycle-4) + "|PC: " +str(self.pc*4) + " xor $" + self.I[0] + ",$" + self.I[1] + ",$" + self.I[2] + "   Taking 4 cycles")
             elif(self.name == "lw"):
-                print("Cycle: " + str(self.cycle-5) + "|PC :" +str(self.pc*4) + " lw $" + str(int(self.I[6:11],2)) + "," + str(int(self.I[16:32],2) - 8192) + "($" + str(int(self.I[6:11],2)) + ")" + "   Taking 5 cycles"  )
+                memAddr = (self.I[1]).split('(')
+                immStr = memAddr[0]
+                rsStr = memAddr[1]
+                rsStr = rsStr.replace(')','') # remove end parentheses
+                print("Cycle: " + str(self.cycle-5) + "|PC: " +str(self.pc*4) + " lw $" + self.I[0] + "," + immStr + "($" + rsStr + ")" + "   Taking 5 cycles")
             elif(self.name == "sw"):
-                print("Cycle: " + str(self.cycle-4) + "|PC :" +str(self.pc*4) + " sw $" + str(int(self.I[6:11],2)) + "," + str(int(self.I[16:32],2) - 8192) + "($" + str(int(self.I[6:11],2)) + ")" + "   Taking 4 cycles"  )
+                memAddr = (self.I[1]).split('(')
+                immStr = memAddr[0]
+                rsStr = memAddr[1]
+                rsStr = rsStr.replace(')','') # remove end parentheses
+                print("Cycle: " + str(self.cycle-4) + "|PC: " +str(self.pc*4) + " sw $" + self.I[0] + "," + immStr + "($" + rsStr + ")" + "   Taking 4 cycles")
             else:
                 print("")
 
     def exitSim(self):
-        print("***Finished simulation***")
-        print("Total # of cycles: " + str(self.cycle))
+        print("\n***Finished simulation***")
+        print("\nTotal # of cycles: " + str(self.cycle))
         print("Dynamic instructions count: " +str(self.DIC) + ". Break down:")
         print("                    " + str(self.threeCycles) + " instructions take 3 cycles" )  
         print("                    " + str(self.fourCycles) + " instructions take 4 cycles" )
@@ -92,22 +98,6 @@ def chooseDiag():
             print('\nInvalid input.\n')
         diagMenu = input('Enter 1, 2, or # here: ')
 
-# 
-# saveJumpLabel: helper function for getInstructions()
-# Remembers where each of the jump labels are, as well as the target location
-#
-# def saveJumpLabel(asm,labelIndex, labelName):
-#    lineCount = 0
-#    for line in asm:
-#        line = line.replace(" ","")
-#        if(line.count(":")):
-#            labelName.append(line[0:line.index(":")]) # append the label name
-#            labelIndex.append(lineCount) # append the label's index
-#            asm[lineCount] = line[line.index(":")+1:]
-#        lineCount += 1
-#    for item in range(asm.count('\n')): # Remove all empty lines '\n'
-#        asm.remove('\n')
-
 #
 # getInstructions: formats assembly code for ease of use in simulator
 #
@@ -115,7 +105,7 @@ def getInstructions():
 
     I_file = open('Program_A1.txt', 'r')
     Instructions = I_file.readlines()   # holds all instructions
-    for j in range(len(Instructions)): # Scrub all comment lines ('#' -> '\n')
+    for j in range(len(Instructions)): # Scrub comment lines ('#blah' -> '\n')
         if Instructions[j].startswith('#'):
             Instructions[j] = '\n'
     for item in range(Instructions.count('\n')): # Remove all empty lines '\n'
@@ -125,31 +115,8 @@ def getInstructions():
         Instructions[k] = Instructions[k].replace('$','')
         Instructions[k] = Instructions[k].replace(' ','')
         Instructions[k] = Instructions[k].replace('zero','0') # zero for 0
-    Instructions.append('Deadloop')
+    Instructions.append('Deadloop') # add final instruction to stop sim
 
-#    labelIndex = []
-#    labelName = []
-
-#    saveJumpLabel(asm,labelIndex,labelName) # Save all jump's destinations
-
-#        elif(line[0:1] == "j"): # JUMP
-#            line = line.replace("j","")
-#            line = line.split(",")
-
-            # Since jump instruction has 2 options:
-            # 1) jump to a label
-            # 2) jump to a target (integer)
-            # We need to save the label destination and its target location
-
-#            if(line[0].isdigit()): # First,test to see if it's a label or a integer
-#                f.write(str('000010') + str(format(int(line[0]),'026b')) + '\n')
-
-#            else: # Jumping to label
-#                for i in range(len(labelName)):
-#                    if(labelName[i] == line[0]):
-#                        f.write(str('000010') + str(format(int(labelIndex[i]),'026b')) + '\n')
-
-#    f.close()
     return Instructions
 
 #
@@ -157,19 +124,30 @@ def getInstructions():
 #
 def mcycleSim(diagMode):
 
-    # TODO: Remove lines in assembly that are just tags
-    # TODO: Make sure unsigned ops actually work on unsigned #'s
-    # TODO: Make sure branch ops replace tags with immediates
-    # TODO: Memory ops
-
+    branchTargets = {} # dict to hold branch tag key/ instr nubmer value pairs
     Instructions = getInstructions()
+
+    tagsToScrub = -1 # iterator for lines removed after branch tags are scrubbed
+    for n in range(len(Instructions)): # Check lines for branch target tags
+        if Instructions[n].count(':'):
+            tagsToScrub += 1
+            temp = Instructions[n]     # n is line number in program
+            temp = temp.replace(':','')
+            branchTargets[temp] = (n - tagsToScrub) # dict value line-x & tag key
+    for p in range(len(Instructions)): # Scrub all tag lines ('blah:' -> '\n')
+        if Instructions[p].endswith(':'):
+            Instructions[p] = '\n'
+    for item in range(Instructions.count('\n')): # Remove all empty lines '\n'
+        Instructions.remove('\n')
+
+    print('List of instructions (for debugging):')
     print(Instructions)
     print('\n')
 
     Register = [0 for i in range(24)]   # initialize regs from $0-$24, but
                                # only utilize $8 - $23 as stated in guideline
     Memory = [0 for i in range(1024)]
-    stats = Statistic(diagMode) # init. the statistic class, keeps track of diagMode as well
+    stats = Statistic(diagMode) # init. the statistic class, tracks diagMode
 
     PC =  0                             # Set PC to 0, beginning of the program
 
@@ -195,20 +173,28 @@ def mcycleSim(diagMode):
             PC += 1
 
         elif(fetch[0:3] == 'beq'):
-            # fetch = fetch.replace('beq','')
-            # fetch = fetch.split(',')
-            # imm = int(fetch[2]) if fetch[16]=='0' else -(65535 -int(fetch[16:32],2)+1)   # positive or negative
-            # stats.log(fetch,'beq', 3, PC) # BEQ instr, 3 cycles
+            fetch = fetch.replace('beq','')
+            fetch = fetch.split(',')
+            if fetch[2] in branchTargets:
+                # get branch target int value from dict
+                imm = branchTargets[fetch[2]] - PC - 1
+            else:
+                imm = int(fetch[2])
+            stats.log(fetch,'beq', 3, PC) # BEQ instr, 3 cycles
             PC += 1
-            # PC = PC + imm if (Register[int(fetch[1])] == Register[int(fetch[0])]) else PC
+            PC = PC + imm if (Register[int(fetch[1])] == Register[int(fetch[0])]) else PC
         
         elif(fetch[0:3] == 'bne'):
-            # fetch = fetch.replace('bne','')
-            # fetch = fetch.split(',')
-            # imm = int(fetch[2]) if fetch[16]=='0' else -(65535 -int(fetch[16:32],2)+1)
-            # stats.log(fetch,'bne', 3, PC) # BNE instr, 3 cycles
+            fetch = fetch.replace('bne','')
+            fetch = fetch.split(',')
+            if fetch[2] in branchTargets:
+                # get branch target int value from dict
+                imm = branchTargets[fetch[2]] - PC - 1
+            else:
+                imm = int(fetch[2])
+            stats.log(fetch,'bne', 3, PC) # BNE instr, 3 cycles
             PC += 1
-            # PC = PC + imm if (Register[int(fetch[1])] != Register[int(fetch[0])]) else PC
+            PC = PC + imm if (Register[int(fetch[1])] != Register[int(fetch[0])]) else PC
 
         elif(fetch[0:3] == 'ori'):
             fetch = fetch.replace('ori','')
@@ -273,29 +259,45 @@ def mcycleSim(diagMode):
         # Memory instructions (special I-type)
 
         elif(fetch[0:2] == 'lw'):
-            # fetch = fetch.replace('lw','')
-            # fetch = fetch.split(',')
-            # #Sanity check for word-addressing
-            # if ( int(fetch[30:32])%4 != 0 ):
-            #     print("Runtime exception: fetch address not aligned on word boundary. Exiting ")
-            #     print("Instruction causing error:", hex(int(fetch,2)))
-            #     exit()       
-            # imm = int(fetch[16:32],2)
-            # Memory[imm + Register[int(fetch[6:11],2)] - 8192]= Register[int(fetch[11:16],2)] # Load word from memory
-            # stats.log(fetch,"lw", 5, PC)    # LW instr, 5 cycles
+            fetch = fetch.replace('lw','')
+            fetch = fetch.split(',')
+            memAddr = fetch[1] # we've got rs and imm stuck together like imm(rs)
+            memAddr = memAddr.split('(')
+            imm = memAddr[0]
+            if imm.startswith('0x'):
+                imm = int(imm,16)                      # hex number check
+            else:
+                imm = int(imm)
+            rs = memAddr[1]
+            rs = rs.replace(')','')                    # remove end parentheses
+            # Sanity check for word-addressing
+            if ( (imm%4) != 0 ):
+                print("Runtime exception: fetch address not aligned on word boundary. Exiting ")
+                print("Instruction causing error:", hex(int(fetch,2)))
+                exit()
+            Register[int(fetch[0])] = Memory[imm + Register[int(rs)] - 8192] # Load word from memory
+            stats.log(fetch,"lw", 5, PC)    # LW instr, 5 cycles
             PC += 1
 
         elif(fetch[0:2] == 'sw'):
-            # fetch = fetch.replace('sw','')
-            # fetch = fetch.split(',')
-            # #Sanity check for word-addressing
-            # if ( int(fetch[30:32])%4 != 0 ):
-            #     print("Runtime exception: fetch address not aligned on word boundary. Exiting ")
-            #     print("Instruction causing error:", hex(int(fetch,2)))
-            #     exit()       
-            # imm = int(fetch[16:32],2)
-            # Memory[imm + Register[int(fetch[6:11],2)] - 8192]= Register[int(fetch[11:16],2)] # Store word into memory
-            # stats.log(fetch,"sw", 4, PC)    # SW instr, 4 cycles
+            fetch = fetch.replace('sw','')
+            fetch = fetch.split(',')
+            memAddr = fetch[1] # we've got rs and imm stuck together like imm(rs)
+            memAddr = memAddr.split('(')
+            imm = memAddr[0]
+            if imm.startswith('0x'):
+                imm = int(imm,16)                      # hex number check
+            else:
+                imm = int(imm)
+            rs = memAddr[1]
+            rs = rs.replace(')','')                    # remove end parentheses
+            # Sanity check for word-addressing
+            if ( (imm%4) != 0 ):
+                print("Runtime exception: fetch address not aligned on word boundary. Exiting ")
+                print("Instruction causing error:", hex(int(fetch,2)))
+                exit()
+            Memory[imm + Register[int(rs)] - 8192] = Register[int(fetch[0])] # Store word into memory
+            stats.log(fetch,"sw", 4, PC)    # SW instr, 4 cycles
             PC += 1
 
         else:
@@ -307,8 +309,8 @@ def mcycleSim(diagMode):
 
     if(finished):
         stats.exitSim()
-        print("Registers: " + str(Register))
-
+        print("\nRegisters: " + str(Register))
+        print("\nMemory (beginning at offset 0x2000 and listed by word): " + str(Memory[0::4]))
 
 #
 # apipeSim: AP MIPS CPU simulator
@@ -337,6 +339,7 @@ def dcacheSim(diagMode):
 def main():
 
     print('\nMIPS CPU and Cache Simulator for Project 4, ECE 366 Fall 2019\n')
+    print('WARNING: ONLY MC CPU SIMULATOR WORKS IS CURRENTLY TESTABLE')
     print('Main menu:\n')
     print('1) Multi-cycle MIPS CPU Simulator')
     print('2) Aggressive Pipelined MIPS CPU Simulator')
