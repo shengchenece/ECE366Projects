@@ -6,7 +6,7 @@ Sheng Chen
 ## Activity Log
 December 7 - Began the project<br/>
 December 8 - Menu structure and assembly program read-in<br/>
-December 9 - <br/>
+December 9 - Multi-cycle CPU simulator complete<br/>
 
 My advice for other students for this project is to have friends. Friends
 motivate people to do things they would not do by themselves. They can also do

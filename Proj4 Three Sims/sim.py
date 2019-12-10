@@ -1,7 +1,7 @@
 # ECE 366 Fall 2019
 # Project 4 - Advanced MIPS Simulator
 # Sheng Chen
-# Some functions modified from code by Trung le
+# Some functions modified from code by Trung le and Daniel Serrano
 
 
 # This class keeps track of all the statistics needed for
@@ -140,9 +140,9 @@ def mcycleSim(diagMode):
     for item in range(Instructions.count('\n')): # Remove all empty lines '\n'
         Instructions.remove('\n')
 
-    print('List of instructions (for debugging):')
-    print(Instructions)
-    print('\n')
+    # print('List of instructions (for debugging):')
+    # print(Instructions)
+    # print('\n')
 
     Register = [0 for i in range(24)]   # initialize regs from $0-$24, but
                                # only utilize $8 - $23 as stated in guideline
@@ -209,7 +209,13 @@ def mcycleSim(diagMode):
         elif(fetch[0:4] == 'addu'):
             fetch = fetch.replace('addu','')
             fetch = fetch.split(',')
-            Register[int(fetch[0])] = Register[int(fetch[1])] + Register[int(fetch[2])]
+            adduRS = Register[int(fetch[1])] # put into variables for sign check
+            adduRT = Register[int(fetch[2])]
+            if adduRS < 0:            # 2's complement: add 2^32 to neg numbers
+                adduRS = adduRS + (2**32)   # to get their unsigned equivalents
+            if adduRT < 0:
+                adduRT = adduRT + (2**32)
+            Register[int(fetch[0])] = adduRS + adduRT
             stats.log(fetch,'addu', 4,PC)  # ADDU instr, 4 cycles
             PC += 1
 
@@ -224,14 +230,36 @@ def mcycleSim(diagMode):
             fetch = fetch.replace('sll','')
             fetch = fetch.split(',')
             sh = int(fetch[2])
-            Register[int(fetch[0])] = Register[int(fetch[1])] << sh
+            bigNum = Register[int(fetch[1])] << sh
+            # if number is larger than 32 bits, we need to cut off the extra bits
+            if bigNum > 2147483647 or bigNum < -2147483648:
+                bigNum = format(bigNum, '064b') # convert to binary string
+                # Debug: print('BigNum was ' + bigNum)
+                length = len(bigNum)
+                start = length - 32
+                bigNum = bigNum[start:]  # truncate bits more signficant than 31
+                # Debug: print('BigNum is now ' + bigNum)
+                if bigNum[0] == '0':
+                    z = int(bigNum, 2)    # positive
+                else:                     # 2's complement math back to decimal
+                    z = -1 * (int(''.join('1' if x == '0' else '0' for x in bigNum), 2) + 1)
+                    # Debug: print(z)
+                Register[int(fetch[0])] = z
+            else:
+                Register[int(fetch[0])] = bigNum
             stats.log(fetch,'sll', 4,PC)  # SLL instr, 4 cycles
             PC += 1
 
         elif(fetch[0:4] == 'sltu'):
             fetch = fetch.replace('sltu','')
             fetch = fetch.split(',')
-            Register[int(fetch[0])] = 1 if Register[int(fetch[1])] < Register[int(fetch[2])] else 0
+            sltuRS = Register[int(fetch[1])] # put into variables for sign check
+            sltuRT = Register[int(fetch[2])]
+            if sltuRS < 0:            # 2's complement: add 2^32 to neg numbers
+                sltuRS = sltuRS + (2**32)   # to get their unsigned equivalents
+            if sltuRT < 0:
+                sltuRT = sltuRT + (2**32)
+            Register[int(fetch[0])] = 1 if sltuRS < sltuRT else 0
             stats.log(fetch,'sltu', 4, PC) # SLTU instr, 4 cycles
             PC += 1
 
@@ -339,7 +367,7 @@ def dcacheSim(diagMode):
 def main():
 
     print('\nMIPS CPU and Cache Simulator for Project 4, ECE 366 Fall 2019\n')
-    print('WARNING: ONLY MC CPU SIMULATOR WORKS IS CURRENTLY TESTABLE')
+    print('WARNING: ONLY MC CPU SIMULATOR IS CURRENTLY TESTABLE')
     print('Main menu:\n')
     print('1) Multi-cycle MIPS CPU Simulator')
     print('2) Aggressive Pipelined MIPS CPU Simulator')
